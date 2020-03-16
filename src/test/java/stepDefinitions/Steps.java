@@ -1,20 +1,25 @@
 package stepDefinitions;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+
+import com.deesite.pageObjects.CartPage;
+import com.deesite.pageObjects.CheckoutPage;
+import com.deesite.pageObjects.HomePage;
+import com.deesite.pageObjects.ProductListingPage;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
 public class Steps {
 	WebDriver driver;
-
+	HomePage home = new HomePage(driver);
+	ProductListingPage productListingPage = new ProductListingPage(driver);
+	CartPage cartPage = new CartPage(driver);
+	CheckoutPage checkoutPage = new CheckoutPage(driver);
+	
 	@Given("User is on Home Page")
 	public void user_is_on_Home_Page() {
 		System.setProperty("webdriver.chrome.driver", "//Users//deepakarora//soft//chromedriver");
@@ -25,80 +30,33 @@ public class Steps {
 	}
 
 	@When("he search for {string}")
-	public void he_search_for(String string) {
-		driver.navigate().to("http://shop.demoqa.com/?s=" + "dress" + "&post_type=product");
+	public void he_search_for(String product) {
+		home = new HomePage(driver);
+		home.performSearch(product);
 	}
 
 	@When("choose to buy first item")
 	public void choose_to_buy_first_item() {
-		List<WebElement> items = driver.findElements(By.cssSelector(".noo-product-inner"));
-		items.get(0).click();
-
-		Select chooseColor = new Select(driver.findElement(By.cssSelector("#pa_color")));
-		chooseColor.selectByVisibleText("White");
-
-		Select chooseSize = new Select(driver.findElement(By.cssSelector("#pa_size")));
-		chooseSize.selectByVisibleText("Medium");
-
-		WebElement addToCart = driver.findElement(By.cssSelector("button.single_add_to_cart_button"));
-		addToCart.click();
+		productListingPage = new ProductListingPage(driver);
+		productListingPage.selectProduct(0);
+		productListingPage.selectProductColor("White");
+		productListingPage.selectProductSize("Medium");
+		productListingPage.clickAddToCart();
 	}
 
 	@When("moves to checkout from mini cart")
 	public void moves_to_checkout_from_mini_cart() {
-		WebElement cart = driver.findElement(By.cssSelector(".cart-button"));
-		cart.click();
-
-		WebElement proceedToCheckout = driver.findElement(By.cssSelector(".checkout-button.alt"));
-		proceedToCheckout.click();
+		cartPage = new CartPage(driver);
+		cartPage.clickCart();
+		cartPage.clicProceedToCheckout();
 	}
 
 	@When("enter personal details on checkout page")
 	public void enter_personal_details_on_checkout_page() throws InterruptedException {
 		Thread.sleep(5000);
-		WebElement firstName = driver.findElement(By.cssSelector("#billing_first_name"));
-		firstName.sendKeys("Lakshay");
-
-		WebElement lastName = driver.findElement(By.cssSelector("#billing_last_name"));
-		lastName.sendKeys("Sharma");
-
-		/*
-		 * Select countryDropDown = new
-		 * Select(driver.findElement(By.cssSelector("#billing_country")));
-		 * chooseSize.selectByVisibleText("India");
-		 */
-
-		WebElement countryDropDown = driver.findElement(By.cssSelector("#select2-billing_country-container"));
-		countryDropDown.click();
-		Thread.sleep(2000);
-
-		List<WebElement> countryList = driver.findElements(By.cssSelector("#select2-billing_country-results li"));
-		for (WebElement country : countryList) {
-			if (country.getText().equals("India")) {
-				country.click();
-				Thread.sleep(3000);
-				break;
-			}
-		}
-
-		WebElement address = driver.findElement(By.cssSelector("#billing_address_1"));
-		address.sendKeys("Shalimar Bagh");
-
-		WebElement city = driver.findElement(By.cssSelector("#billing_city"));
-		city.sendKeys("Delhi");
-		// select2-billing_state-results
-		Select stateDropDown = new Select(driver.findElement(By.cssSelector("#billing_state")));
-		stateDropDown.selectByVisibleText("Goa");
-
-		WebElement postcode = driver.findElement(By.cssSelector("#billing_postcode"));
-		postcode.sendKeys("110088");
-
-		WebElement phone = driver.findElement(By.cssSelector("#billing_phone"));
-		phone.sendKeys("07438862327");
-
-		WebElement emailAddress = driver.findElement(By.cssSelector("#billing_email"));
-		emailAddress.sendKeys("test@gmail.com");
-
+		checkoutPage = new CheckoutPage(driver);
+		checkoutPage.fillPersonalDetails();
+		
 	}
 
 	@When("select same delivery address")
@@ -119,24 +77,9 @@ public class Steps {
 	@When("place the order")
 	public void place_the_order() throws InterruptedException {
 		Thread.sleep(5000);
-		for (int i = 0; i <= 2; i++) {
-			try {
-				WebElement acceptTC = driver.findElement(By.cssSelector("input#terms"));
-				acceptTC.click();
-				break;
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-
-			}
-		}
-
-		/*
-		 * WebElement acceptTC = driver.findElement(By.cssSelector("input#terms"));
-		 * acceptTC.click();
-		 */
-
-		WebElement placeOrder = driver.findElement(By.cssSelector("#place_order"));
-		placeOrder.submit();
+		CheckoutPage checkoutPage = new CheckoutPage(driver);
+		checkoutPage.checkTermsAndCondition(true);
+		checkoutPage.clickPlaceOrder();
 		
 		driver.quit();
 
