@@ -31,7 +31,6 @@ public class Steps {
 		pageObjectManager = new PageObjectManager(driver);
 		homePage = pageObjectManager.getHomePage();
 		homePage.navigateToHomePage();
-		//driver.get("http://www.shop.demoqa.com");
 	}
 
 	@When("he search for {string}")
