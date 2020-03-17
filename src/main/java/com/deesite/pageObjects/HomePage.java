@@ -3,7 +3,7 @@ package com.deesite.pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import com.deesite.dataProfider.ConfigFileReader;
+import com.deesite.dataProfiders.ConfigFileReader;
 import com.deesite.managers.FileReaderManager;
 
 public class HomePage {

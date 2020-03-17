@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.deesite.dataProfider.ConfigFileReader;
 import com.deesite.managers.FileReaderManager;
 import com.deesite.managers.PageObjectManager;
+import com.deesite.managers.WebDriverManager;
 import com.deesite.pageObjects.CartPage;
 import com.deesite.pageObjects.CheckoutPage;
 import com.deesite.pageObjects.HomePage;
@@ -23,15 +23,12 @@ public class Steps {
 	CartPage cartPage = new CartPage(driver);
 	CheckoutPage checkoutPage = new CheckoutPage(driver);
 	PageObjectManager pageObjectManager;
-	ConfigFileReader configFileReader;
+	WebDriverManager webDriverManager;
 	
 	@Given("User is on Home Page")
 	public void user_is_on_Home_Page() {
-		configFileReader = new ConfigFileReader();
-		System.setProperty("webdriver.chrome.driver", FileReaderManager.getInstance().getConfigReader().getDriverPath());
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);
+		webDriverManager = new WebDriverManager();
+		driver = webDriverManager.getDriver();
 		pageObjectManager = new PageObjectManager(driver);
 		homePage = pageObjectManager.getHomePage();
 		homePage.navigateToHomePage();
@@ -88,9 +85,7 @@ public class Steps {
 		checkoutPage.checkTermsAndCondition(true);
 		checkoutPage.clickPlaceOrder();
 		
-		driver.quit();
-
-
+		webDriverManager.quiteDriver();
 	}
 
 }
