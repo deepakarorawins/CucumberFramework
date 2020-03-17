@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.deesite.dataProfider.ConfigFileReader;
 import com.deesite.managers.PageObjectManager;
 import com.deesite.pageObjects.CartPage;
 import com.deesite.pageObjects.CheckoutPage;
@@ -21,13 +22,15 @@ public class Steps {
 	CartPage cartPage = new CartPage(driver);
 	CheckoutPage checkoutPage = new CheckoutPage(driver);
 	PageObjectManager pageObjectManager;
+	ConfigFileReader configFileReader;
 	
 	@Given("User is on Home Page")
 	public void user_is_on_Home_Page() {
-		System.setProperty("webdriver.chrome.driver", "//Users//deepakarora//soft//chromedriver");
+		configFileReader = new ConfigFileReader();
+		System.setProperty("webdriver.chrome.driver", configFileReader.getDriverPath());
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(configFileReader.getImplicitlyWait(), TimeUnit.SECONDS);
 		pageObjectManager = new PageObjectManager(driver);
 		homePage = pageObjectManager.getHomePage();
 		homePage.navigateToHomePage();
