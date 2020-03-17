@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.deesite.dataProfider.ConfigFileReader;
+import com.deesite.managers.FileReaderManager;
 
 public class HomePage {
 	WebDriver driver;
@@ -20,7 +21,7 @@ public class HomePage {
 	}
 	
 	public void navigateToHomePage() {
-		driver.get(configFileReader.getApplicationUrl());
+		driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
 	}
 	
 	
