@@ -1,7 +1,9 @@
 package stepDefinitions;
 
 import com.deesite.cucumber.TestContext;
+import com.deesite.managers.FileReaderManager;
 import com.deesite.pageObjects.CheckoutPage;
+import com.deesite.testDataTypes.Customer;
 
 import io.cucumber.java.en.When;
 
@@ -14,10 +16,11 @@ public class CheckoutPageSteps {
 		checkoutPage = testContext.getPageObjectManager().getCheckoutPage();
 	}
 
-	@When("enter personal details on checkout page")
-	public void enter_personal_details_on_checkout_page() throws InterruptedException {
+	@When("enter {string} personal details on checkout page")
+	public void enter_personal_details_on_checkout_page(String customerName) throws InterruptedException {
 		Thread.sleep(5000);
-		checkoutPage.fillPersonalDetails();
+		Customer customer = FileReaderManager.getInstance().getJsonDataReader().getCustomerByName(customerName);
+		checkoutPage.fillPersonalDetails(customer);
 
 	}
 
@@ -41,6 +44,7 @@ public class CheckoutPageSteps {
 		Thread.sleep(5000);
 		checkoutPage.checkTermsAndCondition(true);
 		checkoutPage.clickPlaceOrder();
+		Thread.sleep(5000);
 	}
 
 }
