@@ -1,0 +1,38 @@
+[
+	{
+		"firstName": "Ram",
+		"lastName": "Ram",
+		"age": 35,
+		"emailAddress": "ram@mailinator.com",
+		"address": {
+			"streetAddress": "Rampur",
+			"city": "Delhi",
+			"postCode": "123456",
+			"state": "Delhi",
+			"country": "India",
+			"county": "Delhi"
+		},
+		"phoneNumber": {
+			"home": "0123456789",
+			"mob": "0987654321"
+		}
+	},
+	{
+		"firstName": "Shyam",
+		"lastName": "Shyam",
+		"age": 35,
+		"emailAddress": "shyam@mailinator.com",
+		"address": {
+			"streetAddress": "Shyampur",
+			"city": "Gurgaon",
+			"postCode": "123456",
+			"state": "Haryana",
+			"country": "India",
+			"county": "Delhi"
+		},
+		"phoneNumber": {
+			"home": "0123456789",
+			"mob": "0987654321"
+		}
+	}
+]

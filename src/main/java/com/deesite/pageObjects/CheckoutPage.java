@@ -9,6 +9,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import com.deesite.testDataTypes.Customer;
+
 public class CheckoutPage {
 	
 	@FindBy(how=How.CSS, using="#billing_first_name")
@@ -106,16 +108,16 @@ public class CheckoutPage {
 		btnPlaceOrder.submit();
 	}
 	
-	public void fillPersonalDetails() {
-		enterFirstName("Automation");
-		enterLasName("Test");
-		selectCountry("India");
-		enterBillingAddress("Shalimar Bagh");
-		enterCity("Delhi");
-		selectState("Goa");
-		enterBillingPostCode("110088");
-		enterBillingPhone("000000000");
-		enterBillingEmail("deemet@mailinator.com");
+	public void fillPersonalDetails(Customer customer) {
+		enterFirstName(customer.firstName);
+		enterLasName(customer.lastName);
+		selectCountry(customer.address.country);
+		enterBillingAddress(customer.address.streetAddress);
+		enterCity(customer.address.city);
+		selectState(customer.address.state);
+		enterBillingPostCode(customer.address.postCode);
+		enterBillingPhone(customer.phoneNumber.mob);
+		enterBillingEmail(customer.emailAddress);
 		
 		
 		
