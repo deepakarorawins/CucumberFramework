@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.deesite.pageObjects.CartPage;
 import com.deesite.pageObjects.CheckoutPage;
+import com.deesite.pageObjects.ConfirmationPage;
 import com.deesite.pageObjects.HomePage;
 import com.deesite.pageObjects.ProductListingPage;
 
@@ -13,6 +14,7 @@ public class PageObjectManager {
 	private CartPage cartPage;
 	private ProductListingPage productListingPage;
 	private CheckoutPage checkoutPage;
+	private ConfirmationPage confirmationPage;
 
 	public PageObjectManager(WebDriver driver) {
 		this.driver = driver;
@@ -32,6 +34,10 @@ public class PageObjectManager {
 	
 	public CheckoutPage getCheckoutPage() {
 		return (checkoutPage == null) ? new CheckoutPage(driver) : checkoutPage;
+	}
+	
+	public ConfirmationPage getConfirmationPage() {
+		return (confirmationPage == null) ? new ConfirmationPage(driver) : confirmationPage;
 	}
 	
 }
