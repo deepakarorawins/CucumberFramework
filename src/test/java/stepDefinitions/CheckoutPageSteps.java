@@ -44,7 +44,6 @@ public class CheckoutPageSteps {
 		Thread.sleep(5000);
 		checkoutPage.checkTermsAndCondition(true);
 		checkoutPage.clickPlaceOrder();
-		Thread.sleep(5000);
 	}
 
 }
