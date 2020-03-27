@@ -623,3 +623,6 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/java,linux,macos,maven,windows,eclipse,intellij+all,visualstudio,visualstudiocode
+
+# Dee's Custom ignores
+test-output/
