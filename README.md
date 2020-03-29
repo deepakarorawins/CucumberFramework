@@ -1,10 +1,11 @@
 # CucumberFramework
 
 
-
-
-
-
+# Run as JUnit
+Now we are all set to run the Cucumber test. Right
+Click on **TestRunner** class and Click **Run As >> JUnit Test**. Cucumber will run the script the same way it runs in Selenium WebDriver and the result will be shown in the left hand side project explorer window in JUnit tab.
+You may find the report
+at C:\ToolsQA\CucumberFramework\target\cucumber-reports folder
 
 
 # Run Cucumber Test from Command Line / Terminal
